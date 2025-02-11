@@ -1,0 +1,24 @@
+PortSystem 1.0
+name            qmk-cli
+version         1.1.6
+categories      sysutils
+maintainers     github.com:popbones
+description     QMK CLI for managing keyboard firmware
+long_description QMK CLI allows users to build and flash QMK firmware.
+homepage        https://github.com/qmk/qmk_cli
+master_sites    https://github.com/qmk/qmk_cli/archive/refs/tags/1.1.6.zip
+license         MIT
+depends_build   port:python312 port:git port:arm-none-eabi-gcc port:avr-gcc port:avrdude port:dfu-programmer port:dfu-util
+depends_lib     port:python312 port:py312-pip port:py312-virtualenv port:git port:arm-none-eabi-gcc port:avr-gcc port:avrdude port:dfu-programmer port:dfu-util
+
+# Install QMK CLI and set up firmware
+destroot {
+    system "python3.12 -m venv ${prefix}/libexec/qmk-cli"
+    system "${prefix}/libexec/qmk-cli/bin/pip install qmk"
+
+    # Ensure the firmware is installed
+    # system "${prefix}/libexec/qmk-cli/bin/qmk setup -y"
+
+    # Create a symlink so qmk is accessible in ${prefix}/bin
+    ln -s ${prefix}/libexec/qmk-cli/bin/qmk ${prefix}/bin/qmk
+}

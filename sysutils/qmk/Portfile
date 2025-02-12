@@ -1,0 +1,47 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                qmk
+version             1.1.6
+revision            0
+description         QMK CLI for managing keyboard
+long_description    QMK CLI allows users to build and flash QMK firmware.
+categories          sysutils
+maintainers         github.com:popbones \
+                    github.com:qmk
+
+homepage            https://github.com/qmk/qmk_cli
+license             MIT
+platforms           {darwin any}
+supported_archs     noarch
+
+checksums           rmd160  61a598df52df9a58a8352f4aa564f3855af67c91 \
+                    sha256  dc436cdbabf2f8cec6dbad453de3832be01bac8e7e9c19075c29866ee22a8b50 \
+                    size    12714
+
+python.versions  310 311 
+python.default_version 311
+
+depends_build-append   port:py${python.version}-virtualenv \
+                       port:py${python.version}-pip
+
+depends_lib-append  port:arm-none-eabi-gcc \
+                    port:avr-gcc \
+                    port:avrdude \
+                    port:dfu-programmer \
+                    port:dfu-util \
+                    port:py${python.version}-milc
+
+# Install QMK CLI and set up firmware
+# destroot {
+    # system "python${python.version} -m venv ${destroot}/libexec/qmk"
+    # system "${destroot}/libexec/qmk/bin/pip install qmk"
+
+    # Ensure the firmware is installed
+    # system "${destroot}/libexec/qmk/bin/qmk setup -y"
+
+    # Create a symlink so qmk is accessible in ${destroot}/bin
+    # ln -s ${destroot}/libexec/qmk/bin/qmk ${destroot}/bin/qmk
+# }

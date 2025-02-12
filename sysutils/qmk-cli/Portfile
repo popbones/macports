@@ -8,8 +8,15 @@ long_description QMK CLI allows users to build and flash QMK firmware.
 homepage        https://github.com/qmk/qmk_cli
 master_sites    https://github.com/qmk/qmk_cli/archive/refs/tags/1.1.6.zip
 license         MIT
-depends_build   port:python312 port:git port:arm-none-eabi-gcc port:avr-gcc port:avrdude port:dfu-programmer port:dfu-util
-depends_lib     port:python312 port:py312-pip port:py312-virtualenv port:git port:arm-none-eabi-gcc port:avr-gcc port:avrdude port:dfu-programmer port:dfu-util
+depends_lib     bin:python312:python312 \
+                bin:pip:py312-pip \
+                bin:virtualenv:py312-virtualenv \
+                port:git \
+                port:arm-none-eabi-gcc \
+                port:avr-gcc \
+                port:avrdude \
+                port:dfu-programmer \
+                port:dfu-util
 
 # Install QMK CLI and set up firmware
 destroot {
